@@ -69,7 +69,7 @@ public class Main {
                 .option("sheetName", "Sheet1") // Required
                 .option("useHeader", "true") // Required
                 .option("maxRowsInMemory", 10)
-                .load("dataset.xlsx");
+                .load("test.xls");
 
         myRow.printSchema();
 //        JavaRDD<Rating> myRatings = myRow.flatMap(myr -> myr.)
@@ -83,7 +83,7 @@ public class Main {
 
         Dataset<Rating> newRatings = myRow.map((MapFunction<Row,Rating>) s -> {
             return new Rating(s.getString(2).hashCode(),
-                    s.getString(3).hashCode(),
+                    (s.getString(3)+s.getString(4)).hashCode(),
                     Double.parseDouble(s.getString(12)));
         },Encoders.bean(Rating.class));
 
